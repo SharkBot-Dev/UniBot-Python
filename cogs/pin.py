@@ -37,7 +37,7 @@ class PinCog(commands.Cog):
     @commands.hybrid_command(name="pin", description="メッセージをピン留めします。")
     @commands.has_permissions(pin_messages=True)
     async def pin(self, ctx: commands.Context):
-        if not ctx.interaction.response:
+        if not ctx.interaction:
             await ctx.reply("`/pin`で実行できます。")
             return
         await ctx.interaction.response.send_modal(PinModal())
