@@ -4,7 +4,7 @@ import discord
 class AboutCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.VERSION = "1.0.0"
+        self.VERSION = "1.0.1"
         print("init -> AboutCog")
 
     @commands.hybrid_command(name="about", description="Botについての情報を表示")

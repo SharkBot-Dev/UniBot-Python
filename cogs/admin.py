@@ -4,7 +4,6 @@ import discord
 class AdminCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.VERSION = "1.0.0"
         print("init -> AdminCog")
 
     @commands.command(name="reload", description="cogをリロード")

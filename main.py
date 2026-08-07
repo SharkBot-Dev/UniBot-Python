@@ -22,6 +22,25 @@ class UniBot(commands.Bot):
         self.db: aiosqlite.Connection = None
         self.cursor: aiosqlite.Cursor = None
 
+    async def on_command_error(self, ctx: commands.Context, error):
+        if isinstance(error, commands.CommandNotFound):
+            await ctx.reply("不明なコマンドです。\n`/`と入力してコマンドを確認してください。")
+            return
+        elif isinstance(error, commands.NotOwner):
+            await ctx.reply("403 Forbidden")
+            return
+        elif isinstance(error, commands.BadArgument):
+            await ctx.reply(f"コマンドの使い方が間違っています。\n`/{ctx.command.qualified_name}`と入力してコマンドを確認してください。", allowed_mentions=discord.AllowedMentions.none())
+            return
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.reply(f"コマンドの使い方が間違っています。\n`/{ctx.command.qualified_name}`と入力してコマンドを確認してください。", allowed_mentions=discord.AllowedMentions.none())
+            return
+        elif isinstance(error, commands.MissingPermissions):
+            await ctx.reply("403 Forbidden")
+            return
+        else:
+            await ctx.reply(embed=discord.Embed(title="すみません。エラーが発生しました。", color=discord.Color.red(), description=f"```{error}```"))
+
     async def setup_hook(self):
         self.db = await aiosqlite.connect("settings.db")
         self.cursor = await self.db.cursor()
