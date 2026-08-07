@@ -44,6 +44,7 @@ async def loop_status():
 
 @bot.event
 async def on_ready():
+    loop_status.start()
     print("Ready.")
 
 bot.run(os.environ.get('TOKEN'))
