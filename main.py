@@ -1,5 +1,5 @@
 from discord.app_commands.tree import CommandTree
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
 from discord.ext.commands.bot import _default
 from discord.utils import MISSING
@@ -37,6 +37,10 @@ class UniBot(commands.Bot):
         # await self.tree.sync()
 
 bot = UniBot()
+
+@tasks.loop(seconds=10)
+async def loop_status():
+    await bot.change_presence(activity=discord.CustomActivity(name="UniPro製Bot"))
 
 @bot.event
 async def on_ready():

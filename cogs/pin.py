@@ -35,6 +35,7 @@ class PinCog(commands.Cog):
         print("init -> PinCog")
 
     @commands.hybrid_command(name="pin", description="メッセージをピン留めします。")
+    @commands.has_permissions(pin_messages=True)
     async def pin(self, ctx: commands.Context):
         if not ctx.interaction.response:
             await ctx.reply("`/pin`で実行できます。")
@@ -42,6 +43,7 @@ class PinCog(commands.Cog):
         await ctx.interaction.response.send_modal(PinModal())
 
     @commands.hybrid_command(name="unpin", description="ピン留めを解除します。")
+    @commands.has_permissions(pin_messages=True)
     async def unpin(self, ctx: commands.Context):
         await ctx.defer(ephemeral=True)
 
