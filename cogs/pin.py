@@ -90,7 +90,7 @@ class PinCog(commands.Cog):
             try:
                 await discord.PartialMessage(channel=message.channel, id=int(data[2])).delete()
             except:
-                return
+                pass
             new_message = await message.channel.send(embed=discord.Embed(description=data[3], color=discord.Color.green()).set_footer(text="Pinned Message"))
 
             await self.bot.cursor.execute('UPDATE pin SET message_id = ? WHERE channel_id = ?', (str(new_message.id), str(message.channel.id)),)
